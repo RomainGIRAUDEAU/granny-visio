@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+</head>
+    <body>
+
+    <div class="topnav">
+        <img src="assets/images/logo.webp" class="photo">
+        <a class="active" href="#home">Zone d'appel</a>
+    </div>
+
+    <div class="section-recherche">
+        <div id="display-code"></div>
+        <textarea id="search" style="width: 30%"></textarea>
+        <button id="send" style="width: 30%"> entrer</button>
+    </div>
+
+    <div class="section-video">
+        <video id="localVideo" class="section-mine" autoplay muted></video>
+        <video id="remoteVideo" class="section-him" autoplay></video>
+        <script src="script.js"></script>
+    </div>
+
+
+    </body>
+</html>

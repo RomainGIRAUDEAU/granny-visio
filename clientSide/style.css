@@ -1,0 +1,75 @@
+body {
+    background-color: #e8eaec;
+    overflow: hidden;
+}
+
+video {
+    max-width: calc(50% - 100px);
+    margin: 0 50px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 0;
+    box-shadow: rgba(156, 172, 172, 0.2) 0px 2px 2px, rgba(156, 172, 172, 0.2) 0px 4px 4px, rgba(156, 172, 172, 0.2) 0px 8px 8px, rgba(156, 172, 172, 0.2) 0px 16px 16px, rgba(156, 172, 172, 0.2) 0px 32px 32px, rgba(156, 172, 172, 0.2) 0px 64px 64px;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+    overflow: hidden;
+    background-color: #b94240;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: #b94240;
+}
+
+.photo{
+    max-width: 40px;
+    max-height: 40px;
+    margin: 0.8em;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #af813e;
+    color: white;
+}
+.section-video{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    flex-direction: column;
+    margin: 1em;
+}
+
+.section-recherche{
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+    align-items: center;
+}
+
+.section-mine{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1em;
+}
+
+.section-him{
+    min-width: 70%;
+    min-height: 70%;
+}
