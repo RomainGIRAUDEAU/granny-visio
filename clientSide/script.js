@@ -1,60 +1,66 @@
-
 // Generate random room name if needed
 if (!location.hash) {
     location.hash = Math.floor(Math.random() * 0xFFFFFF).toString(16);
 }
 const roomHash = location.hash.substring(1);
-
-
-
-const drone = new ScaleDrone('QhXbuuf2AZynlU0p');
-// Room name needs to be prefixed with 'observable-'
-const roomName = 'observable-' + roomHash;
-console.log(roomName);
-document.querySelector("#display-code").textContent = `votre numéro est  ${roomName}`;
-document.getElementById("send").onclick = function(){
-    const roomTest = document.getElementById("search").value;
-    connectedTOSalon(roomTest);
-};
-
 const configuration = {
     iceServers: [{
         urls: 'stun:stun.l.google.com:19302'
     }]
 };
-let room;
-let pc;
 
 
-function onSuccess() {}
-function onError(error) {
-    console.error(error);
+
+document.querySelector("#display-code").textContent = `votre numéro est  ${roomHash}`;
+document.getElementById("send").onclick = function(){
+    const roomValue = document.getElementById("search").value;
+    startRoom(roomValue);
+
 };
+startRoom();
 
-drone.on('open', error => {
-    if (error) {
-        return console.error(error);
-    }
-    connectedTOSalon(roomName);
-});
+function startRoom(roomValue = null){
+    const drone = new ScaleDrone('QhXbuuf2AZynlU0p');
+// Room name needs to be prefixed with 'observable-'
+    const roomName = 'observable-' + (roomValue == null ? roomHash : roomValue);
+    const configuration = {
+        iceServers: [{
+            urls: 'stun:stun.l.google.com:19302'
+        }]
+    };
+    let room;
+    let pc;
 
-function connectedTOSalon(roomName){
-    room = drone.subscribe(roomName);
-    room.on('open', error => {
+    function onSuccess() {};
+    function onError(error) {
+        console.error(error);
+    };
+
+    drone.on('open', error => {
         if (error) {
-            onError(error);
+            return console.error(error);
         }
-    });
-    // We're connected to the room and received an array of 'members'
-    // connected to the room (including us). Signaling server is ready.
-    room.on('members', members => {
-        console.log('connected persons', members);
-        if(members.length === 2){
-            //start the rasperry py
+        room = drone.subscribe(roomName);
+        room.on('open', error => {
+            if (error) {
+                onError(error);
+            }
+        });
+        // We're connected to the room and received an array of 'members'
+        // connected to the room (including us). Signaling server is ready.
+        room.on('members', members => {
+            console.log('MEMBERS', members);
+            // If we are the second user to connect to the room we will be creating the offer
             const isOfferer = members.length === 2;
-            startWebRTC(isOfferer);
-
-        }
+            const Http = new XMLHttpRequest();
+            const url = 'http://localhost:3000/'; // start our python script
+            Http.open("GET", url);
+            Http.send();
+            Http.onreadystatechange = (e) => {
+                console.log(e);
+                startWebRTC(isOfferer);
+            };
+        });
     });
 }
 
